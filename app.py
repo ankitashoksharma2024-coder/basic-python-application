@@ -1,54 +1,30 @@
-def add(a, b):
-    return a + b
-
-def subtract(a, b):
-    return a - b
-
-def multiply(a, b):
-    return a * b
-
-def divide(a, b):
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a / b
+import sys
 
 def main():
-    while True:
-        print("\n--- MENU DRIVEN CALCULATOR ---")
-        print("1. Add")
-        print("2. Subtract")
-        print("3. Multiply")
-        print("4. Divide")
-        print("5. Exit")
-        
-        choice = input("Enter your choice: ")
-        
-        if choice == "5":
-            print("Exiting...")
-            break
-            
-        if choice not in ["1", "2", "3", "4"]:
-            print("Invalid choice")
-            continue
-            
-        try:
-            a = float(input("Enter first number: "))
-            b = float(input("Enter second number: "))
-        except ValueError:
-            print("Error: Please enter valid numbers.")
-            continue
-            
-        if choice == "1":
-            print("Result:", add(a, b))
-        elif choice == "2":
-            print("Result:", subtract(a, b))
-        elif choice == "3":
-            print("Result:", multiply(a, b))
-        elif choice == "4":
-            try:
-                print("Result:", divide(a, b))
-            except ValueError as e:
-                print(e)
+    # Fallback default marks for Jenkins automated run if no args are passed
+    if len(sys.argv) == 4:
+        sub1 = float(sys.argv[1])
+        sub2 = float(sys.argv[2])
+        sub3 = float(sys.argv[3])
+    else:
+        print("[CI Mode] No inputs provided. Using automated test marks:")
+        sub1, sub2, sub3 = 65.0, 45.0, 78.0
+
+    total = sub1 + sub2 + sub3
+    average = total / 3
+    
+    # Passing criteria: Average mark must be 40 or above
+    status = "PASS" if average >= 40 else "FAIL"
+
+    print("\n----- MARKS REPORT -----")
+    print(f"Subject 1 : {sub1}")
+    print(f"Subject 2 : {sub2}")
+    print(f"Subject 3 : {sub3}")
+    print("------------------------")
+    print(f"Total     : {total}")
+    print(f"Average   : {average:.2f}")
+    print(f"Result    : {status}")
+    print("------------------------")
 
 if __name__ == "__main__":
     main()
