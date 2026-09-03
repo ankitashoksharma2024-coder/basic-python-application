@@ -1,3 +1,4 @@
+import sys
 def add_numbers(a, b):
     return a + b
 
@@ -17,3 +18,6 @@ def run_addition():
     print(f"First Number : {num1}")
     print(f"Second Number: {num2}")
     print(f"Sum         : {result}")
+    
+if __name__ == "__main__":
+    run_addition()
